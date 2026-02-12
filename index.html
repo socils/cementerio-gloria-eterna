@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloria Eterna — Camposanto & Servicios Funerarios</title>
+
+  <style>
+ /* ===================== BASE ===================== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",Arial
+}
+
+body{
+  background:linear-gradient(180deg,#ffffff,#f3faf6);
+  color:#2a2a2a
+}
+
+/* ===================== VERIFICACIÓN TRADEL!NK ===================== */
+#verifLayer{
+  position:fixed;
+  inset:0;
+  background:#0b1c17ee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+  color:#fff;
+  backdrop-filter:blur(6px)
+}
+
+.verif-box{
+  background:#102b24;
+  border:1px solid #1d4a3f;
+  border-radius:18px;
+  padding:28px;
+  max-width:360px;
+  width:92%;
+  text-align:center;
+  box-shadow:0 20px 40px #00000055
+}
+
+.verif-circle{
+  width:80px;
+  height:80px;
+  margin:0 auto 14px;
+  border-radius:50%;
+  border:6px solid #1f6f5d;
+  border-top-color:#4fe3b8;
+  animation:spin 1.2s linear infinite
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.progress{
+  height:8px;
+  border-radius:10px;
+  background:#0f4035;
+  overflow:hidden;
+  margin:12px 0
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:#4fe3b8
+}
+
+@keyframes loadbars{
+  to{width:100%}
+}
+
+small{opacity:.8;font-size:12px}
+
+/* ===================== ANIMACIONES ===================== */
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeIn .9s ease forwards}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+
+.scale-in{opacity:0;transform:scale(.95);animation:scaleIn .9s ease forwards}
+@keyframes scaleIn{to{opacity:1;transform:scale(1)}}
+
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* ===================== HEADER CON CARRUSEL ===================== */
+header{
+  position:relative;
+  height:360px;
+  color:#fff;
+  overflow:hidden;
+  background:linear-gradient(135deg,#6ec1a6,#9dd4c7)
+}
+
+.header-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:opacity 1.2s ease
+}
+.header-slide.active{opacity:1}
+
+header .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#6ec1a680,#9dd4c780)
+}
+
+header .content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  top:50%;
+  transform:translateY(-50%)
+}
+
+.logo{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:#ffffff55;
+  border:2px solid #fff;
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#fff;
+  backdrop-filter:blur(4px)
+}
+
+h1{font-size:42px;font-weight:700;margin-bottom:6px}
+.subtitle{font-size:18px;opacity:.9}
+
+/* ===================== SECCIONES / TARJETAS ===================== */
+.sec-card{
+  background:#fff;
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 20px 40px #00000012;
+  border:1px solid #e9f2ef
+}
+
+h2{color:#0c6f59;margin-bottom:10px}
+
+.line{
+  width:70px;height:4px;
+  background:#48b79b;
+  border-radius:10px;
+  margin-bottom:18px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+  margin-top:10px
+}
+
+.card{
+  background:linear-gradient(180deg,#ffffff,#f5fbf8);
+  border:1px solid #e3f0eb;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 10px 24px #00000010;
+  transition:.35s;
+  position:relative;
+  overflow:hidden
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 38px #00000018
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top,#b1ead7 0%,transparent 60%);
+  opacity:.2;
+  pointer-events:none
+}
+
+.price{font-weight:700;color:#0a6e57}
+
+/* ===================== FOOTER ===================== */
+footer{
+  background:linear-gradient(135deg,#8fd7c4,#6ab7a1);
+  color:#fff;
+  text-align:center;
+  padding:26px;
+  margin-top:70px
+}
+
+/* ===================== BOTÓN WHATSAPP ===================== */
+.btn-whatsapp{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#25D366;
+  color:#fff;
+  font-size:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  box-shadow:0 12px 22px #25d36655;
+  transition:.35s;
+  z-index:9999;
+  animation:pulse 2.6s infinite
+}
+
+.btn-whatsapp:hover{
+  transform:scale(1.08);
+  box-shadow:0 16px 30px #25d36666
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 #25d36655}
+  70%{box-shadow:0 0 0 14px transparent}
+  100%{box-shadow:0 0 0 0 transparent}
+}/* ===================== NAV SUPERIOR ===================== */
+nav.fade-in {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: #ffffffcc;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #e3f2ed;
+  
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+
+  padding: 12px 18px;
+  box-shadow: 0 10px 28px #0000000a;
+  animation-delay: .3s;
+}
+
+nav.fade-in a {
+  text-decoration: none;
+  color: #2a2a2a;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: .35s ease;
+}
+
+nav.fade-in a:hover {
+  background: #e8f7f1;
+  color: #0c6f59;
+  transform: translateY(-2px);
+}
+
+/* Estado activo al hacer scroll a secciones */
+nav.fade-in a.active {
+  background: #48b79b;
+  color: #fff;
+}
+
+/* -------- Responsive -------- */
+@media(max-width: 720px){
+  nav.fade-in{
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  nav.fade-in a{
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+}
+/* ===== CONTENEDOR DEL BOTÓN CTA ===== */
+.cta {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ===== BOTÓN CTA PRINCIPAL ===== */
+.cta button {
+  padding: 12px 22px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+
+  background: linear-gradient(135deg, #4fe3b8, #2c9c7c);
+  color: #ffffff;
+  letter-spacing: .3px;
+
+  box-shadow: 0 12px 26px #2c9c7c44;
+  transition: .35s ease;
+}
+
+/* Hover */
+.cta button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 34px #2c9c7c55;
+}
+
+/* Click */
+.cta button:active {
+  transform: scale(.97);
+}
+
+/* Versión adaptable en móvil */
+@media(max-width: 720px){
+  .cta button{
+    width: 100%;
+  }
+}
+/* ===== CONTENEDOR ===== */
+.cta {
+  text-align: center;
+  margin-top: 28px;
+  position: relative;
+}
+
+/* ===== BOTÓN PREMIUM ANIMADO ===== */
+.cta button {
+  position: relative;
+  padding: 14px 28px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: .5px;
+
+  background: linear-gradient(135deg, #6ff7ce, #36d3a5, #1ea377, #2cc08f);
+  background-size: 260% 260%;
+  color: #ffffff;
+
+  box-shadow: 0 18px 38px #1ea37740;
+  transition: .35s ease;
+  animation: gradientFlow 6s ease infinite,
+             floatSoft 4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* Flujo del degradado */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+/* Flotación suave */
+@keyframes floatSoft {
+  0%,100% { transform: translateY(0) }
+  50% { transform: translateY(-5px) }
+}
+
+/* ===== BRILLO EXTERIOR ===== */
+.cta button::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 22px;
+  background: radial-gradient(#6ff7ce55, transparent 70%);
+  opacity: 0;
+  transition: .35s;
+}
+
+.cta button:hover::before {
+  opacity: 1;
+}
+
+/* ===== PARTÍCULAS SUAVES ===== */
+.cta button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(#ffffff55 2px, transparent 3px),
+    radial-gradient(#ffffff33 2px, transparent 3px);
+  background-size: 18px 18px, 26px 26px;
+  opacity: .25;
+  animation: particles 6s linear infinite;
+}
+
+@keyframes particles {
+  to { background-position: 60px 40px, -50px -40px }
+}
+
+/* ===== EFECTO HOVER ===== */
+.cta button:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 24px 46px #1ea37755;
+  filter: brightness(1.08);
+}
+
+/* ===== EFECTO ONDA AL CLIC ===== */
+.cta button:active {
+  transform: scale(.95);
+}
+
+.cta button:focus::before {
+  animation: wave 0.5s ease;
+}
+
+@keyframes wave {
+  from { opacity: 1; transform: scale(1) }
+  to { opacity: 0; transform: scale(2.2) }
+}
+
+/* ===== ATENCIÓN AUTOMÁTICA CADA 10s ===== */
+@keyframes pulseAttention {
+  0%,92%,100% { transform: scale(1) }
+  95% { transform: scale(1.06) }
+  98% { transform: scale(.97) }
+}
+
+.cta button.attn {
+  animation: gradientFlow 6s ease infinite,
+             floatSoft 4s ease-in-out infinite,
+             pulseAttention 10s ease infinite;
+}
+
+/* ===== MODO MÓVIL ===== */
+@media(max-width: 720px){
+  .cta button{
+    width: 100%;
+  }
+}
+  /* Fondo general */
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(160deg, #e4f2e8, #cfe8db);
+  color: #1d2b1d;
+}
+
+/* Contenedor principal */
+section {
+  background: #ffffffdd;
+  border-radius: 18px;
+  padding: 25px;
+  margin: 18px auto;
+  max-width: 1100px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Navbar */
+nav {
+  background: linear-gradient(120deg, #2f6f4e, #3c8c60);
+  padding: 14px 25px;
+  border-bottom: 4px solid #1f4f35;
+}
+
+nav a {
+  color: #f3fff5;
+  margin-right: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: #2a563b;
+}
+
+/* Tarjetas / bloques de información */
+.card {
+  background: #f1fbf4;
+  border-left: 6px solid #4da873;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* Botón CTA */
+.cta button {
+  background: linear-gradient(120deg, #4da873, #2f6f4e);
+  color: #ffffff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: .3px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .25);
+  transition: transform .25s, filter .25s;
+}
+
+.cta button:hover {
+  transform: scale(1.07);
+  filter: brightness(1.1);
+}
+
+.cta button:active {
+  transform: scale(.96);
+}
+
+/* Animación suave de aparición */
+.fade-in {
+  animation: fadeIn .9s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== CAPA DE VERIFICACIÓN ===================== -->
+  <div id="verifLayer">
+    <div class="verif-box" id="verifBox">
+      <div class="verif-circle"></div>
+      <h3 style="color: white;" id="verifTitle">Verificando acceso</h3>
+      <p id="verifMsg">Estamos comprobando que no eres un bot…</p>
+
+      <div class="progress"><span id="bar"></span></div>
+
+      <p id="adaptiveMsg"><em>Adaptando a tu dispositivo…</em></p>
+
+      <p><strong>Powered by TradeL!nk</strong></p>
+      <small>
+        Al continuar aceptas nuestras Condiciones y Política.
+        Esta verificación protege la seguridad del sitio y evita accesos automatizados.
+      </small>
+    </div>
+  </div>
+
+  <script>
+    const bar = document.getElementById("bar");
+    const box = document.getElementById("verifBox");
+    const title = document.getElementById("verifTitle");
+    const msg = document.getElementById("verifMsg");
+    const adaptive = document.getElementById("adaptiveMsg");
+
+    function animateBar(ms) {
+      bar.style.animation = `loadbars ${ms}ms linear forwards`;
+    }
+
+    const r = Math.random();
+
+    /* 🔴 1% — Verificación profunda */
+    if (r < 0.01) {
+      title.textContent = "Verificación avanzada requerida";
+      msg.textContent = "Hemos detectado que usted podría ser un bot. Para confirmar que es un humano realizaremos una verificación a fondo. Espere unos minutos…";
+      adaptive.textContent = "Adaptando el sistema a su dispositivo…";
+      animateBar(20000); // 20s
+      setTimeout(() => {
+        document.getElementById("verifLayer").style.opacity = "0";
+        setTimeout(() => document.getElementById("verifLayer").remove(), 500);
+      }, 20000);
+
+      /* 🟡 10% — Actividad anormal */
+    } else if (r < 0.11) {
+      title.textContent = "Actividad anormal detectada";
+      msg.textContent = "Hemos detectado actividad inusual. Por seguridad, reinicie la página para continuar.";
+      adaptive.style.display = "none";
+      bar.style.display = "none";
+
+      const btn = document.createElement("button");
+      btn.textContent = "Reiniciar página";
+      btn.style.marginTop = "10px";
+      btn.onclick = () => location.reload();
+      box.appendChild(btn);
+
+      /* 🟢 89% — Verificación normal */
+    } else {
+      animateBar(7000);
+      setTimeout(() => {
+        document.getElementById("verifLayer").style.opacity = "0";
+        setTimeout(() => document.getElementById("verifLayer").remove(), 500);
+      }, 7000);
+    }
+  </script>
+
+  <!-- ===================== HEADER CON FOTOS DEL CEMENTERIO ===================== -->
+  <header>
+    <div class="header-slide active" style="background-image:url('imagenes/cementerio 1.jpg')"></div>
+    <div class="header-slide" style="background-image:url('imagenes/cementerio 2.jpg')"></div>
+    <div class="header-slide" style="background-image:url('imagenes/cementerio 3.jpg')"></div>
+
+    <div class="overlay"></div>
+
+    <div class="content">
+      <div class="logo">LOGO</div>
+      <h1 style="color: white;">Gloria Eterna</h1>
+      <p class="subtitle">Camposanto & Servicios Funerarios — Dignidad, Paz y Acompañamiento</p>
+    </div>
+  </header>
+
+  <script>
+    /* 🎞️ Carrusel automático del header */
+    const slides = document.querySelectorAll(".header-slide");
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove("active");
+      i = (i + 1) % slides.length;
+      slides[i].classList.add("active");
+    }, 4500);
+  </script>
+
+
+
+  <nav class="fade-in">
+    <a href="#nosotros">Nosotros</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#precios">Planes y Precios</a>
+    <a href="#resenas">Reseñas</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <section id="nosotros" class="fade-in">
+    <div class="sec-card">
+      <h2>Sobre Gloria Eterna</h2>
+      <div class="line"></div>
+      <p>
+        Gloria Eterna es un camposanto diseñado para brindar un entorno sereno y armonioso, donde
+        las familias puedan despedirse y honrar la memoria de sus seres queridos con respeto y paz.
+        Contamos con amplias áreas verdes, espacios ordenados y un equipo humano que acompaña con
+        calidez en cada etapa del proceso.
+      </p>
+    </div>
+  </section>
+
+  <section id="servicios" class="fade-in">
+    <div class="sec-card">
+      <h2>Servicios Funerarios</h2>
+      <div class="line"></div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Sepultura en Campo Santo</h3>
+          <p>Espacios amplios y cuidados para descanso eterno en un ambiente natural y tranquilo.</p>
+        </div>
+
+        <div class="card">
+          <h3>Mantenimiento de Nichos</h3>
+          <p>Limpieza, flores y conservación permanente para mayor tranquilidad de las familias.</p>
+        </div>
+
+        <div class="card">
+          <h3>Capilla y Ceremonias</h3>
+          <p>Ambiente solemne para despedidas dignas y servicios conmemorativos.</p>
+        </div>
+
+        <div class="card">
+          <h3>Acompañamiento Familiar</h3>
+          <p>Orientación y apoyo en trámites y organización del servicio funerario.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios" class="fade-in">
+    <div class="sec-card">
+      <h2>Planes y Precios Referenciales</h2>
+      <div class="line"></div>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>Plan Básico</h3>
+          <p>Incluye nicho estándar y mantenimiento inicial.</p>
+          <p class="price">Desde S/ 1,200</p>
+        </div>
+
+        <div class="card">
+          <h3>Plan Familiar</h3>
+          <p>Espacio para varios miembros con área ampliada.</p>
+          <p class="price">Desde S/ 3,500</p>
+        </div>
+
+        <div class="card">
+          <h3>Plan Premium</h3>
+          <p>Ubicación preferencial y mantenimiento periódico.</p>
+          <p class="price">Desde S/ 5,800</p>
+        </div>
+
+      </div>
+
+      <div class="cta">
+        <button onclick="alert('Aquí puedes colocar tu WhatsApp o formulario de contacto')">
+          Solicitar información detallada
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="resenas" class="fade-in">
+    <div class="sec-card">
+      <h2>Reseñas de Nuestros Visitantes</h2>
+      <div class="line"></div>
+
+      <div class="review card">
+        <div class="badge">📄</div>
+        <div>
+          <strong>Cristian Danyelo Apaza Zela</strong> — 1 opinión<br>
+          <span>★★★★★ · Hace 2 años</span>
+          <p class="quote">
+            “Es un buen cementerio, brinda muy buenos servicios y también tienen un campo muy grande.
+            Recomendado.”
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="fade-in">
+    <div class="sec-card">
+      <h2>Contacto y Ubicación</h2>
+      <div class="line"></div>
+
+      <p>
+        Aquí puedes encontrar la ubicación exacta de <strong>Gloria Eterna</strong>.
+        El mapa permite ver fotografías, reseñas y Street View directamente desde Google Maps.
+      </p>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:14px">
+
+
+        <div class="card">
+          <div style="border-radius:16px;overflow:hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1922.8648410297897!2d-70.0954351!3d-15.445134399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9167f3ac63fcaff5%3A0x44277373a8dc61f4!2sCEMENTERIO%20GLORIA%20ETERNA%20Juliaca!5e0!3m2!1ses-419!2spe!4v1767054941590!5m2!1ses-419!2spe"
+              width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+          </div>
+        </div>
+
+        <!-- 🟡 Espacio reservado para WhatsApp -->
+        <div class="card" style="display:flex;align-items:center;justify-content:center;text-align:center">
+          <p style="opacity:.8">
+            Aquí puedes colocar un botón flotante de WhatsApp<br>
+            o información de contacto adicional.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <a href="https://wa.me/51999999999" target="_blank" class="btn-whatsapp">
+    <span><img style="width: 50px;" src="imagenes/WhatsApp.svg.png" alt=""></span>
+  </a>
+
+
+  <footer class="scale-in">
+    © Gloria Eterna — Camposanto. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // Aparición progresiva al hacer scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show") })
+    }, { threshold: .15 });
+
+    document.querySelectorAll(".fade-in,.scale-in").forEach(el => {
+      el.classList.add("hidden");
+      observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>
